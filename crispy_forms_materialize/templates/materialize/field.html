@@ -24,7 +24,11 @@
 
             {% if field.label %}
                 {% if field|is_checkbox %}
-                    {% crispy_field field %}
+                  <label for="{{ field.id_for_label }}"
+                         {% if field.field.required %}class="required"{% endif %}>
+                  {% crispy_field field %}
+                    <span>{{ field.label }}</span>
+                  </label>
                 {% endif %}
 
                 {% if field|is_file %}
@@ -33,7 +37,7 @@
 
                 {# do not add label to file field #}
                 {# Here label is also not added if field is radioselect #}
-                {% if not field|is_file and not field|is_select %}
+                {% if not field|is_file and not field|is_select and not field|is_checkbox %}
 
                     <label for="{{ field.id_for_label }}"
                            {% if field.field.required %}class="required"{% endif %}>
@@ -73,8 +77,11 @@
             {% endif %}
 
             {% if field.help_text %}
-                <div id="hint_{{ field.auto_id }}"
-                     class="hint grey-text lighten-1">{{ field.help_text|safe }}</div>
+              {% if field|is_checkbox %}
+                <br /><br />
+              {% endif %}
+                <span id="hint_{{ field.auto_id }}"
+                     class="helper-text grey-text lighten-1">{{ field.help_text|safe }}</span>
             {% endif %}
 
         {% endspaceless %}
