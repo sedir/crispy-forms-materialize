@@ -12,7 +12,7 @@
             {% if field.is_hidden %}
                 {{ field }}
             {% else %}
-                {% include "materialize_css_forms/field.html" %}
+                {% include "materialize/field.html" %}
             {% endif %}
         {% endfor %}
     {% if not forloop.last or not fieldset_open %}
